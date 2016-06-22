@@ -4,3 +4,6 @@ export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 alias cah="cd ~/Source/cahatlas.com/"
+
+# Add GIT autocompletion in bash
+source ~/.git-completion.bash
