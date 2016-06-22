@@ -2,3 +2,5 @@
 export PS1="\n📂  \w\n😊  \u 💻  \h\$ "
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+alias cah="cd ~/Source/cahatlas.com/"
