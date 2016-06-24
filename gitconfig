@@ -1,0 +1,16 @@
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[user]
+	name = Lee Bradley
+	email = elephanthunter@gmail.com
+[push]
+	default = simple
+[core]
+	editor = vim
+[alias]
+  ls = log --oneline
+  caa = commit -a --amend -C HEAD
+[rerere]
+	enabled = true
