@@ -3,6 +3,7 @@ export PS1="\n📂  \w\n😊  \u 💻  \h\$ "
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
+# Colony Homes commands
 alias cah="cd ~/Source/cahatlas.com/"
 
 # Other useful commands
