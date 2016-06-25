@@ -35,5 +35,12 @@ Install [vim-powerline](https://github.com/Lokaltog/vim-powerline)
 git clone https://github.com/Lokaltog/vim-powerline ~/.vim/bundle/vim-powerline
 ```
 
+### iTerm2
+
+1. Install iTerm2
+2. Open `Preferences`
+3. In the `General` tab, check `Load preferences from a custom folder or URL`
+4. Set to `~/.iterm_profile` (You might have to press `CMD-G` at the file selector to type this in manually)
+
 ## That's all
 Read more about dotfiles and rcm at [dotfiles.github.io](https://dotfiles.github.io/)
