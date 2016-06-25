@@ -1,6 +1,18 @@
 # dotfiles
 
-This repo contains my dot files and instructions on how I set them up.
+This repo contains my dot files, useful configurations, and instructions on how these work.
+
+## Usage
+
+Uses [rcm](https://github.com/thoughtbot/rcm) to sync files from the `~/.dotfiles` directory.
+
+Add a file or directory to be synced using `mkrc [filename]`
+
+For instance, `mkrc ~/.bash_profile`
+
+This places it in `~/.dotfiles`, which can be tracked in a repo.
+
+If files in `~/.dotfiles` have changed, they can be installed on your system with `rcup`
 
 ## Installation
 
