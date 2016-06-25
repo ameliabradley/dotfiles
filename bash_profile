@@ -1,7 +1,9 @@
 # Old terminal, without liquid prompt
 #export PS1="\n📂  \w\n😊  \u 💻  \h\$ "
-#export CLICOLOR=1
-#export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+# Enable terminal colors
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 # Colony Homes commands
 alias cah="cd ~/Source/cahatlas.com/"
