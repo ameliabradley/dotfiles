@@ -26,7 +26,7 @@ if v:version >= 700
     highlight SpellCap   ctermbg=Yellow
 endif
 
-set ts=2 sts=2 sw=2 et ai
+set ts=2 sts=2 sw=2 ai
 "set ts=4 sts=4 sw=4 et ai
 " set ts=4 sts=4 sw=4 et ai
 
