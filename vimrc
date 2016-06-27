@@ -32,11 +32,14 @@ set ts=2 sts=2 sw=2 et ai
 
 highlight SpellBad   ctermbg=9 ctermfg=0
 
-" A way to easily identify tabs, which Cyberitas does not use!
-highlight BlahTabs ctermbg=darkgreen guibg=lightgreen
-match BlahTabs /\t/
-au InsertEnter * match BlahTabs /\t/
-au InsertLeave * match BlahTabs /\t/
+" A way to easily identify tabs
+"highlight BlahTabs ctermbg=darkgreen guibg=lightgreen
+"match BlahTabs /\t/
+"au InsertEnter * match BlahTabs /\t/
+"au InsertLeave * match BlahTabs /\t/
+"set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+"set list
+"hi Conceal ctermfg=7 ctermbg=NONE guifg=LightGrey guibg=NONE
     
 " The default is yellow, which I can not read on!
 highlight Search     ctermfg=Black      ctermbg=White     cterm=NONE
