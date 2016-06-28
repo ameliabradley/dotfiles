@@ -8,6 +8,10 @@ export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 # Colony Homes commands
 alias cah="cd ~/Source/cahatlas.com/"
 
+# Docker commands
+alias dcu="docker-compose up -d"
+alias dcs="docker-compose stop"
+
 # Other useful commands
 alias ll="ls -la"
 alias s="source ~/.bash_profile"
