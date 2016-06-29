@@ -12,5 +12,9 @@
 [alias]
   ls = log --oneline
   caa = commit -a --amend -C HEAD
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
 [rerere]
 	enabled = true
