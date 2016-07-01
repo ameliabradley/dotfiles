@@ -3,7 +3,7 @@
 tell application "iTerm"
   tell current window
     tell current session
-      write text "cah; docker-compose up -d"
+      write text "cah; dcu"
       write text "make client"
       
       set webSession to (split vertically with default profile)
