@@ -4,6 +4,7 @@
 # Enable terminal colors
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export HISTSIZE="GOTCHA"
 
 # Colony Homes commands
 alias cah="cd ~/Source/cahatlas.com/"
