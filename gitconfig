@@ -16,5 +16,6 @@
 	ci = commit
 	st = status
 	br = branch
+	ketchup  = "!f() { git checkout develop;git pull;git checkout -;git rebase develop; }; f"
 [rerere]
 	enabled = true
