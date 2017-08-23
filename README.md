@@ -47,11 +47,20 @@ Install [vim-powerline](https://github.com/Lokaltog/vim-powerline)
 git clone https://github.com/Lokaltog/vim-powerline ~/.vim/bundle/vim-powerline
 ```
 
-### Windows Subsystem for Linux
+## Followup - Windows Subsystem for Linux
 
 Make sure to change how Git handles line endings
 ```
 git config --global core.autocrlf true
+```
+
+## Followup - OSX
+
+### Brew installs
+
+Install bash-completion:
+```
+brew install bash-completion
 ```
 
 ### iTerm2
