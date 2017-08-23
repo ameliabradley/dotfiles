@@ -20,5 +20,10 @@ alias s="source ~/.bash_profile"
 # Add GIT autocompletion in bash
 source ~/.git-completion.bash
 
+# Use bash-completion, if available
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
 # Only load Liquid Prompt in interactive shells, not from a script or from scp
 [[ $- = *i* ]] && source ~/liquidprompt/liquidprompt
