@@ -14,15 +14,23 @@ alias ll="ls -la"
 alias s="source ~/.bashrc.common"
 alias dotfiles-update="git -C ~/.dotfiles/ pull origin"
 
-# Get terminal emulator info
-# See: https://unix.stackexchange.com/questions/264329/get-the-terminal-emulator-name-inside-the-shell-script<Paste>
-sid=$(ps -o sid= -p "$$")
-sid_as_integer=$((sid)) # strips blanks if any
-session_leader_parent=$(ps -o ppid= -p "$sid_as_integer")
-session_leader_parent_as_integer=$((session_leader_parent))
-emulator=$(ps -o comm= -p "$session_leader_parent_as_integer")
-
+# Script state variables
+EMULATOR=
 BASH_COMPLETION_PATH=
+
+# Get terminal emulator info
+getEmulator () {
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    EMULATOR="unknown"
+  else
+    # See: https://unix.stackexchange.com/questions/264329/get-the-terminal-emulator-name-inside-the-shell-script
+    local sid=$(ps -o sid= -p "$$")
+    local sid_as_integer=$((sid)) # strips blanks if any
+    local session_leader_parent=$(ps -o ppid= -p "$sid_as_integer")
+    local session_leader_parent_as_integer=$((session_leader_parent))
+    EMULATOR=$(ps -o comm= -p "$session_leader_parent_as_integer")
+  fi
+}
 
 setupNeovim () {
   if [ -x "$(command -v nvim)" ]; then
@@ -121,6 +129,7 @@ checkDotfilesOuttaDate () {
  fi
 }
 
+getEmulator
 checkDotfilesOuttaDate
 setupNeovim
 setupDocker
