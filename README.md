@@ -40,14 +40,22 @@ git clone https://github.com/nojhan/liquidprompt.git ~/liquidprompt/
 
 ### VIM bundles
 
-All vim bundles are installed using [Plug](https://github.com/tpope/vim-pathogen). Plug manages plugins in the `~/.config/nvim/init.vim` directory. On first checkout, Plugins must be installed by running `:PlugInstall`.
+All vim bundles are installed using [Plug](https://github.com/junegunn/vim-plug).
 
 ```
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
+Plug manages plugins in the `~/.config/nvim/init.vim` directory. On first checkout, Plugins must be installed by running `:PlugInstall`.
+
 You will need python3 and pip3 to be installed for deoplete.nvim to function. After installing pip3, you will need to enable support for nvim by running `pip3 install neovim`.
+
+You might want to also install the FiraCode font. On linux:
+
+```
+sudo apt install fonts-firacode
+```
 
 ## Followup - Windows Subsystem for Linux
 
