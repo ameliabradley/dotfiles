@@ -12,6 +12,7 @@ export HISTSIZE="GOTCHA"
 # Other useful commands
 alias ll="ls -la"
 alias s="source ~/.bashrc.common"
+alias dotfiles-update="git -C ~/.dotfiles/ pull origin"
 
 # Get terminal emulator info
 # See: https://unix.stackexchange.com/questions/264329/get-the-terminal-emulator-name-inside-the-shell-script<Paste>
@@ -113,6 +114,14 @@ fixLocale () {
   export LC_ALL="$LANG"
 }
 
+checkDotfilesOuttaDate () {
+ if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+  echo "Hey there! Your dotfiles are out of date!"
+  echo "Run dotfiles-update to fix it."
+ fi
+}
+
+checkDotfilesOuttaDate
 setupNeovim
 setupDocker
 fixLocale
