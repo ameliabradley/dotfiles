@@ -40,12 +40,14 @@ git clone https://github.com/nojhan/liquidprompt.git ~/liquidprompt/
 
 ### VIM bundles
 
-All vim bundles are installed using [Pathogen](https://github.com/tpope/vim-pathogen). Pathogen creates GIT repositories inside this repository's `.vim/bundles` directory. Bundles are listed here, but they must be installed manually.
+All vim bundles are installed using [Plug](https://github.com/tpope/vim-pathogen). Plug manages plugins in the `~/.config/nvim/init.vim` directory. On first checkout, Plugins must be installed by running `:PlugInstall`.
 
-Install [vim-powerline](https://github.com/Lokaltog/vim-powerline)
 ```
-git clone https://github.com/Lokaltog/vim-powerline ~/.vim/bundle/vim-powerline
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
+
+You will need python3 and pip3 to be installed for deoplete.nvim to function. After installing pip3, you will need to enable support for nvim by running `pip3 install neovim`.
 
 ## Followup - Windows Subsystem for Linux
 
