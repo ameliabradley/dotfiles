@@ -115,7 +115,7 @@ fixLocale () {
 }
 
 checkDotfilesOuttaDate () {
- if [ $(git rev-parse HEAD) != $(git rev-parse @{u}) ]; then
+ if [ $(git -C ~/.dotfiles rev-parse HEAD) != $(git -C ~/.dotfiles rev-parse @{u}) ]; then
   echo "Hey there! Your dotfiles are out of date!"
   echo "Run dotfiles-update to fix it."
  fi
