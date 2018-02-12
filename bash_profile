@@ -15,12 +15,26 @@ alias s="source ~/.bash_profile"
 
 source ~/.bashrc
 
+# Get terminal emulator info
+# See: https://unix.stackexchange.com/questions/264329/get-the-terminal-emulator-name-inside-the-shell-script<Paste>
+sid=$(ps -o sid= -p "$$")
+sid_as_integer=$((sid)) # strips blanks if any
+session_leader_parent=$(ps -o ppid= -p "$sid_as_integer")
+session_leader_parent_as_integer=$((session_leader_parent))
+emulator=$(ps -o comm= -p "$session_leader_parent_as_integer")
+
 BASH_COMPLETION_PATH=
 
 setupNeovim () {
   if [ -x "$(command -v nvim)" ]; then
     # So long and thanks for all the fish
     alias vim="nvim"
+
+    if [ "$emulator" == "lxterminal" ]; then
+      # Fix broken characters in lxterminal + neovim
+      # See: https://github.com/neovim/neovim/issues/5990
+      export VTE_VERSION="100"
+    fi
   else
     echo "Neovim NOT installed! You should install neovim!"
   fi
