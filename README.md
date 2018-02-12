@@ -38,6 +38,11 @@ Install [liquidprompt](https://github.com/nojhan/liquidprompt)
 git clone https://github.com/nojhan/liquidprompt.git ~/liquidprompt/
 ```
 
+Add a reference to .bashrc.common in your .bashrc file
+```
+source ~/.bashrc.common
+```
+
 ### VIM bundles
 
 All vim bundles are installed using [Plug](https://github.com/junegunn/vim-plug).

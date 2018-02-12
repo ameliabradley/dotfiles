@@ -11,9 +11,7 @@ export HISTSIZE="GOTCHA"
 
 # Other useful commands
 alias ll="ls -la"
-alias s="source ~/.bash_profile"
-
-source ~/.bashrc
+alias s="source ~/.bashrc.common"
 
 # Get terminal emulator info
 # See: https://unix.stackexchange.com/questions/264329/get-the-terminal-emulator-name-inside-the-shell-script<Paste>
