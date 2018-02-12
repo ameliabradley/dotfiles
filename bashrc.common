@@ -83,6 +83,8 @@ setComputerTag () {
       export COMPUTER_TAG="🌶  ";;
     avocado)
       export COMPUTER_TAG="🥑  ";;
+    raspberrypi)
+      export COMPUTER_TAG="🥧  ";;
     *)
       export COMPUTER_TAG="`hostname` ";;
   esac
