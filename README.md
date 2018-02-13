@@ -16,67 +16,21 @@ If files in `~/.dotfiles` have changed, they can be installed on your system wit
 
 ## Installation
 
-Install [rcm](https://github.com/thoughtbot/rcm)
-
+Easy peasy:
 ```
-brew tap thoughtbot/formulae
-brew install rcm
-```
-
-Install dotfiles
-```
-env RCRC=$HOME/dotfiles/rcrc rcup
+git clone https://github.com/leebradley/dotfiles ~/.dotfiles; \
+ . ~/.dotfiles/autoinstall.sh; \
+ echo "source ~/.bashrc.common" >> ~/.bashrc
 ```
 
-Checkout this repo to dotfiles
-```
-git clone https://github.com/leebradley/dotfiles ~/.dotfiles
-```
-
-Install [liquidprompt](https://github.com/nojhan/liquidprompt)
-```
-git clone https://github.com/nojhan/liquidprompt.git ~/liquidprompt/
-```
-
-Add a reference to .bashrc.common in your .bashrc file
-```
-source ~/.bashrc.common
-```
-
-### VIM bundles
-
-All vim bundles are installed using [Plug](https://github.com/junegunn/vim-plug).
-
-```
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-```
-
-Plug manages plugins in the `~/.config/nvim/init.vim` directory. On first checkout, Plugins must be installed by running `:PlugInstall`.
-
-You will need python3 and pip3 to be installed for deoplete.nvim to function. After installing pip3, you will need to enable support for nvim by running `pip3 install neovim`.
-
-You might want to also install the FiraCode font. On linux:
-
+Optionally install [FiraCode](https://github.com/tonsky/FiraCode) font. On linux:
 ```
 sudo apt install fonts-firacode
 ```
 
-## Followup - Windows Subsystem for Linux
+### VIM bundles
 
-Make sure to change how Git handles line endings
-```
-git config --global core.autocrlf true
-```
-
-## Followup - OSX
-
-### Brew installs
-
-Install bash-completion:
-```
-brew install bash-completion
-```
+All vim bundles are managed with [Plug](https://github.com/junegunn/vim-plug) in `~/.config/nvim/init.vim`
 
 ### iTerm2
 
