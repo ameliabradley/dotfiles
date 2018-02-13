@@ -18,12 +18,89 @@ alias dotfiles-update="git -C ~/.dotfiles/ pull origin"
 EMULATOR=
 BASH_COMPLETION_PATH=
 
+prompt-autoinstall () {
+  # Instead of updating the README.md with manual install steps,
+  # Put all the requirements in this script.
+  # Try to automate everything within reason.
+  # Things that can't be automated, make me do manually
+  # by ALWAYS ALWAYS ALWAYS checking for them in this script.
+  # In this way, I can make sure my setup is never out of sync.
+  if [[ "$OSTYPE" == "darwin"* ]]; then
+    if ! [ -x "$(command -v brew)" ]; then
+      /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    fi
+
+    brew tap thoughtbot/formulae
+    brew install rcm bash-completion neovim python3
+    brew postinstall python3
+  fi
+
+  local ExpectedList=("python3" "rcup" "nvim" "pip3")
+  local i
+  local good="1"
+  for i in "${ExpectedList[@]}"
+  do
+    echo -n "Looking for $i... "
+    if [ -x "$(command -v $i)" ]; then
+      echo "FOUND"
+    else
+      good="0"
+      echo "MISSING"
+    fi
+  done
+
+  if [ $good != "1" ]; then
+    echo
+    echo "prompt-autoinstall script FAILURE"
+    echo "Install missing apps before continuing."
+    return
+  fi
+
+  echo "Installing pip3 module neovim... "
+  pip3 install neovim
+
+  echo -n "Checking liquidprompt... "
+  if ! [[ -d ~/liquidprompt/ ]]; then
+    echo "Not installed. Installing..."
+    git clone https://github.com/nojhan/liquidprompt.git ~/liquidprompt/
+  else
+    echo "FOUND"
+  fi
+
+  if [[ $(uname -r) =~ Microsoft$ ]]; then
+    echo "You are running Windows Subsystem for Linux (WSL)"
+    echo "Autocorrecting git newline problems"
+    git config --global core.autocrlf true
+  fi
+
+  echo -n "Checking plug... "
+  if ! [[ -f ~/.local/share/nvim/site/autoload/plug.vim ]]; then
+    echo "Not set up. Installing..."
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    echo
+    echo "Now, we need to install the neovim plugins."
+    echo "This will open neovim."
+    echo "When finished, quit with :q"
+    echo
+    echo "Press enter when ready"
+    read
+    nvim -c "PlugInstall"
+  else
+    echo "FOUND"
+  fi
+
+  echo
+  echo "prompt-autoinstall script SUCCESS"
+}
+
 # Get terminal emulator info
-getEmulator () {
+_promptGetEmulator () {
   if [[ "$OSTYPE" == "darwin"* ]]; then
     EMULATOR="unknown"
   else
-    # See: https://unix.stackexchange.com/questions/264329/get-the-terminal-emulator-name-inside-the-shell-script
+    # Get the terminal emulator name inside the shell script
+    # See: https://unix.stackexchange.com/a/264353
     local sid=$(ps -o sid= -p "$$")
     local sid_as_integer=$((sid)) # strips blanks if any
     local session_leader_parent=$(ps -o ppid= -p "$sid_as_integer")
@@ -32,51 +109,64 @@ getEmulator () {
   fi
 }
 
-setupNeovim () {
+_promptSetupNeovim () {
+  if ! [ -x "$(command -v python3)" ]; then
+    echo "Python3 is NOT installed. You should install python3 (required for deoplete)"
+    echo "Run: prompt-autoinstall"
+  fi
+
+  if ! [ -x "$(command -v pip3)" ]; then
+    echo "Pip3 is NOT installed. You should install pip3 (required for deoplete)"
+    echo "Run: prompt-autoinstall"
+  fi
+
   if [ -x "$(command -v nvim)" ]; then
     # So long and thanks for all the fish
     alias vim="nvim"
 
-    if [ "$emulator" == "lxterminal" ]; then
+    if [ "$EMULATOR" == "lxterminal" ]; then
       # Fix broken characters in lxterminal + neovim
       # See: https://github.com/neovim/neovim/issues/5990
       export VTE_VERSION="100"
     fi
   else
-    echo "Neovim NOT installed! You should install neovim!"
+    echo "neovim not installed"
+    echo "Run: prompt-autoinstall"
   fi
 }
 
-setupDocker () {
+_promptSetupDocker () {
   if [ -x "$(command -v docker)" ]; then
     alias dcu="docker-compose up -d"
     alias dcs="docker-compose stop"
   fi
 }
 
-setupDarwin () {
+_promptSetupDarwin () {
   # I decided it doesn't make sense to reinstall this SDK outside of Android studio
   export ANDROID_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
 
   if [ -x "$(command -v brew)" ]; then
     BASH_COMPLETION_PATH=$(brew --prefix)/etc/bash_completion
   else
-    echo "brew is not installed"
+    echo "brew not installed"
+    echo "Run: prompt-autoinstall"
   fi
 }
 
-setupBashCompletion () {
+_promptSetupBashCompletion () {
   if [[ -f "$BASH_COMPLETION_PATH" ]]; then
     . "$BASH_COMPLETION_PATH"
 
     # Add GIT autocompletion in bash
     source ~/.git-completion.bash
   else
-    echo "Bash completion is not installed"
+    echo "bash-completion not installed"
+    echo "Run: prompt-autoinstall"
   fi
 }
 
-setComputerTag () {
+_promptSetComputerTag () {
   # Map my computer names to super cool emoji
   case `hostname` in
     MBLPPXNG8WL.local)
@@ -85,6 +175,8 @@ setComputerTag () {
       export COMPUTER_TAG="🥑  ";;
     raspberrypi)
       export COMPUTER_TAG="🥧  ";;
+    Lees-MacBook-Pro.local)
+      export COMPUTER_TAG="🐝  ";;
     *)
       export COMPUTER_TAG="`hostname` ";;
   esac
@@ -93,7 +185,7 @@ setComputerTag () {
   export PS1="${COMPUTER_TAG}"
 }
 
-setupLiquidPrompt () {
+_promptSetupLiquidprompt () {
   local COMPUTER_TAG=$1
 
   if [[ -d ~/liquidprompt/ ]]; then
@@ -106,41 +198,50 @@ setupLiquidPrompt () {
 
     source ~/liquidprompt/liquidprompt
   else
-    INSTALL_LIQUIDPROMPT="git clone https://github.com/nojhan/liquidprompt.git ~/liquidprompt/"
-    alias liquidprompt-install="$INSTALL_LIQUIDPROMPT; s"
-    echo "Some features are disabled because liquidprompt is not installed"
-    echo "Install liquidprompt with the following command: "
-    echo $INSTALL_LIQUIDPROMPT
-    echo ""
-    echo "Or type liquidprompt-install"
-    echo ""
+    echo "liquidprompt not installed"
+    echo "Run: prompt-autoinstall"
   fi
 }
 
-fixLocale () {
+_promptFixLocale () {
   # Fix strange errors that pop up when our locale is not set
-  # See: https://stackoverflow.com/questions/7165108/in-os-x-lion-lang-is-not-set-to-utf-8-how-to-fix-it
+  # See: https://stackoverflow.com/a/8161863
   export LANG="en_US.UTF-8"
   export LC_ALL="$LANG"
 }
 
-checkDotfilesOuttaDate () {
+_promptCheckDotfiles () {
+ # Check the date and time the last git fetch was executed
+ # See: https://stackoverflow.com/a/9229377
+ local last_fetch=`stat -f '%m' ~/.dotfiles/.git/FETCH_HEAD`
+
+ # Best method to Perform timestamp comparison in bash
+ # See: https://stackoverflow.com/a/205694
+ local ts=`date '+%s'`
+ local diff=$((ts - last_fetch))
+ local oneDay=(60 * 60 * 24)
+ if ! [ $diff -gt $oneDay ]; then
+  exit
+ fi
+
+ git -C ~/.dotfiles fetch
  if [ $(git -C ~/.dotfiles rev-parse HEAD) != $(git -C ~/.dotfiles rev-parse @{u}) ]; then
   echo "Hey there! Your dotfiles are out of date!"
   echo "Run dotfiles-update to fix it."
+  echo "If you've made changes, you need to check those changes in!"
  fi
 }
 
-getEmulator
-checkDotfilesOuttaDate
-setupNeovim
-setupDocker
-fixLocale
+_promptGetEmulator
+_promptCheckDotfiles &
+_promptSetupNeovim
+_promptSetupDocker
+_promptFixLocale
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  setupDarwin
+  _promptSetupDarwin
 else
   BASH_COMPLETION_PATH=/usr/share/bash-completion/bash_completion
 fi
-setupBashCompletion
-setComputerTag
-setupLiquidPrompt "$COMPUTER_TAG"
+_promptSetupBashCompletion
+_promptSetComputerTag
+_promptSetupLiquidprompt "$COMPUTER_TAG"
