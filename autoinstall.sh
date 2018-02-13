@@ -10,11 +10,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 
   brew tap thoughtbot/formulae
-  brew install rcm bash-completion neovim python3
+  brew install rcm bash-completion neovim python3 ag
   brew postinstall python3
 fi
 
-local ExpectedList=("python3" "rcup" "nvim" "pip3")
+local ExpectedList=("python3" "rcup" "nvim" "pip3" "ag")
 local i
 local good="1"
 for i in "${ExpectedList[@]}"
