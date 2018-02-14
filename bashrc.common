@@ -138,7 +138,11 @@ _promptFixLocale () {
 _promptCheckDotfiles () {
  # Check the date and time the last git fetch was executed
  # See: https://stackoverflow.com/a/9229377
- local last_fetch=`stat -f '%m' ~/.dotfiles/.git/FETCH_HEAD`
+ if [[ "$OSTYPE" == "darwin"* ]]; then
+   local last_fetch=`stat -f '%m' ~/.dotfiles/.git/FETCH_HEAD`
+ else
+   local last_fetch=`stat -c '%Y' ~/.dotfiles/.git/FETCH_HEAD`
+ fi
 
  # Best method to Perform timestamp comparison in bash
  # See: https://stackoverflow.com/a/205694
