@@ -28,6 +28,10 @@ let g:ale_fix_on_save = 1
 Plug 'mhartington/nvim-typescript'
 map <C-]> :TSDefPreview<CR>
 
+Plug 'Shougo/deoplete.nvim'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'nsf/gocode', { 'rtp': 'nvim', 'do': '~/.config/nvim/plugged/gocode/nvim/symlink.sh' }
+
 " Add typescript syntax highlighting
 " Plug 'HerringtonDarkholme/yats.vim'
 Plug 'leafgarland/typescript-vim'

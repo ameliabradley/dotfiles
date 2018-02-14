@@ -14,9 +14,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew postinstall python3
 fi
 
-local ExpectedList=("python3" "rcup" "nvim" "pip3" "ag")
-local i
-local good="1"
+ExpectedList=("python3" "rcup" "nvim" "pip3" "ag")
+good="1"
 for i in "${ExpectedList[@]}"
 do
   echo -n "Looking for $i... "
