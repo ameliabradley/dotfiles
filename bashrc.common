@@ -71,7 +71,10 @@ _promptSetupDocker () {
 
 _promptSetupDarwin () {
   # I decided it doesn't make sense to reinstall this SDK outside of Android studio
-  export ANDROID_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
+  export JAVA_HOME="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home"
+  export JDK_HOME="$JAVA_HOME"
+  export JRE_HOME="$JAVA_HOME/jre"
+  export PATH="$JDK_HOME/bin:$JRE_HOME/bin:$JAVA_HOME/platform-tools:$PATH"
 
   if [ -x "$(command -v brew)" ]; then
     BASH_COMPLETION_PATH=$(brew --prefix)/etc/bash_completion
