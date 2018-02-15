@@ -39,5 +39,10 @@ All vim bundles are managed with [Plug](https://github.com/junegunn/vim-plug) in
 3. In the `General` tab, check `Load preferences from a custom folder or URL`
 4. Set to `~/.iterm_profile` (You might have to press `CMD-G` at the file selector to type this in manually)
 
+Because I use unicode characters in PS1 I sometimes run into strange bugs. See:
+https://gitlab.com/gnachman/iterm2/issues/6130
+
+To fix, just enable unicode 9 characters in iTerm.
+
 ## That's all
 Read more about dotfiles and rcm at [dotfiles.github.io](https://dotfiles.github.io/)
