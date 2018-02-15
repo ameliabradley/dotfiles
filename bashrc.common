@@ -15,6 +15,8 @@ alias s="source ~/.bashrc.common"
 alias dotfiles-update="git -C ~/.dotfiles/ pull origin"
 alias prompt-autoinstall=". ~/.dotfiles/autoinstall.sh"
 
+export PATH=$PATH:$(go env GOPATH)/bin
+
 # Script state variables
 EMULATOR=
 BASH_COMPLETION_PATH=
